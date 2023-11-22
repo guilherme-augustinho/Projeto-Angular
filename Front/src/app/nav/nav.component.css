@@ -1,0 +1,16 @@
+.navbar{
+    width: auto;
+    flex-shrink: 0;
+    background-color: #E5DD0D;
+
+}
+
+.container-fluid
+{
+    background-color: #E5DD0D;
+}
+
+.img{
+    
+    flex-shrink: 0;
+}
