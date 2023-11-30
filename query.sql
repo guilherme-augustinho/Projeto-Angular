@@ -8,9 +8,11 @@ use GuinaLanches
 go
  
 create table Cliente(
-ID int identity primary key,
-Nome varchar(100) not null,
-Senha varchar(100) not null,
-DataNasc date not null
-);
+	ID int identity primary key,
+	Nome varchar(80) not null,
+	Senha varchar(MAX) not null,
+	Salt varchar(200) not null,
+	);
 go
+
+
