@@ -1,36 +1,39 @@
 .container{
   width: 100%;
   background: rgba(137, 106, 226);
-
 }
 
-.example-form {
+.form1 {
   min-width: 150px;
   max-width: 500px;
   width: 100%;
   margin-top: 300px;
 }
-  
-.example-full-width {
-    width: 100%;
-}
-.text-button{
-  color: #eff307;
-}
 
 .btn2{
   margin-left: 320px; 
 }
-
-.modal-title {
-  color: #eff307;
-  width: 100%;
-}
-
-.modal-content{
+ 
+.form2 {
+  min-width: 150px;
+  max-width: 400px;
   background: rgba(137, 106, 226);
+  
 }
 
-.modal-header{
-  text-align: center;
+.forms{
+  margin-top: 20px;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.btns{
+  margin-bottom: 20px;
+
+}
+
+.text-button{
+  color: #eff307;
 }

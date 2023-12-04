@@ -1,15 +1,15 @@
 <div class="container">
     <div class="row">
         <div class="col d-flex justify-content-center">
-            <form class="example-form">
+            <form class="form1">
                 <mat-form-field class="example-full-width">
                     <mat-label>Email</mat-label>
-                    <input type="email" matInput placeholder="Ex: email@example.com">
+                    <input type="email" matInput placeholder="Email" [(ngModel)]="username" name="first">
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
                     <mat-label>Senha</mat-label>
-                    <input type="password" matInput placeholder="Ex: senha123">
+                    <input type="password" matInput placeholder="Senha" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
                 </mat-form-field>
             </form>
         </div>
@@ -18,44 +18,9 @@
     <div class="row">
         <div class="col d-flex justify-content-center">
             <div class="btns">
-                <button class="btn1" mat-raised-button color="primary"><span class="text-button">Entrar</span></button>
-                <button class="btn2" mat-raised-button color="primary" data-bs-toggle="modal"data-bs-target="#exampleModal"><span class="text-button">Cadastrar</span></button>
+                <button class="btn1" mat-raised-button color="primary" (click)="logar()"><span class="text-button">Entrar</span></button>
+                <button class="btn2" mat-raised-button color="primary" (click)="registrar()"><span class="text-button">Cadastrar</span></button>
             </div>
-
-            <!-- Modal -->
-
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title" id="exampleModalLabel">Cadastrando Usuario</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <mat-form-field class="example-full-width">
-                                <mat-label>Email</mat-label>
-                                <input type="email" matInput placeholder="Ex: email@example.com">
-                            </mat-form-field>
-
-                            <mat-form-field class="example-full-width">
-                                <mat-label>Senha</mat-label>
-                                <input type="password" matInput placeholder="Ex: senha123">
-                            </mat-form-field>
-
-                            <mat-form-field class="example-full-width">
-                                <mat-label>Repetir Senha</mat-label>
-                                <input type="password" matInput placeholder="Ex: senha123">
-                            </mat-form-field>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="" mat-raised-button color="primary"><span class="text-button">Fechar</span></button>
-                            <button class="" mat-raised-button color="primary"><span class="text-button">Salvar</span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 
