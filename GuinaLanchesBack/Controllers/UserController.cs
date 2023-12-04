@@ -1,9 +1,13 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
+
 
 namespace GuinaLanchesBack.Controllers;
 
 using DTO;
+using Microsoft.AspNetCore.Cors;
 using Services;
 
 [ApiController]
@@ -11,6 +15,8 @@ using Services;
 public class UserController : ControllerBase
 {
     [HttpGet]
+    [EnableCors("DefaultPolicy")]
+
     public async Task<IActionResult> Login(
         [FromBody] UserData user,
         [FromServices] IUserService service)
@@ -26,6 +32,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
+    [EnableCors("DefaultPolicy")]
     public async Task<IActionResult> Create(
         [FromBody] UserData user,
         [FromServices] IUserService service)
@@ -35,6 +42,8 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete]
+    [EnableCors("DefaultPolicy")]
+
     public IActionResult DeleteUser()
     {
         throw new NotImplementedException();
