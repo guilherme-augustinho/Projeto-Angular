@@ -18,26 +18,31 @@ public class UserService : IUserService
     }
     public async Task Create(UserData data)
     {
-        Cliente cliente = new Cliente();
+        User user = new User();
         var salt = await security.GenerateSalt();
 
-        cliente.Nome = data.Login;
-        cliente.Senha = await security.HashPassword(
+        user.Email = data.Login;
+        user.Password = await security.HashPassword(
             data.Password, salt
         );
-        cliente.Salt = salt;
+        user.Salt = salt;
 
-        this.ctx.Add(cliente);
+        this.ctx.Add(user);
         await this.ctx.SaveChangesAsync();
     }
 
-    public async Task<Cliente> GetByLogin(string login)
+    public async Task<User> GetByLogin(string login)
     {
         var query = 
-            from c in this.ctx.Clientes
-            where c.Nome == login
+            from c in this.ctx.Users
+            where c.Email == login
             select c;
 
         return await query.FirstOrDefaultAsync();
+    }
+
+    Task<User> IUserService.GetByLogin(string login)
+    {
+        throw new NotImplementedException();
     }
 }

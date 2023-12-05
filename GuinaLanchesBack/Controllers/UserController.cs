@@ -7,9 +7,11 @@ using System.Collections.Generic;
 
 namespace GuinaLanchesBack.Controllers;
 
+using System.Runtime.InteropServices;
 using DTO;
 using Microsoft.AspNetCore.Cors;
 using Services;
+using Trevisharp.Security.Jwt;
 
 [ApiController]
 [Route("user")]
@@ -21,7 +23,9 @@ public class UserController : ControllerBase
     public async Task<IActionResult> Login(
         [FromBody] UserData user,
         [FromServices] IUserService service,
-        [FromServices] ISecurityService security)
+        [FromServices] ISecurityService security,
+        [FromServices] CryptoService crypto
+    )
     {
         var loginUser = await service
             .GetByLogin(user.Login);
@@ -30,12 +34,13 @@ public class UserController : ControllerBase
             user.Password, loginUser.Salt
         );
 
-        var realPassword = loginUser.Senha;
+        var realPassword = loginUser.Password;
 
         if(password != realPassword)
             return Unauthorized("Senha incorreta!");
-
-        return Ok();
+        
+        var jwt = crypto.GetToken(new { id = loginUser.Id});
+        return Ok(new { jwt });
     }
 
     [HttpPost("register")]

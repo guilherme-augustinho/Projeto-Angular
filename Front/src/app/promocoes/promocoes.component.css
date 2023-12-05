@@ -1,0 +1,28 @@
+.promocoes{
+    font-family: Rubik Bubbles;
+    font-size: 80px;
+    margin-top: 100px;
+
+}
+.nameBurguer{
+    font-family: Rubik Bubbles;
+    color: #eff307;
+    font-size: 50px;
+    margin-top: 10px;
+}
+
+.lanches{ 
+    transition: 1s;
+    width: 350px;
+    height: 250px;
+    border-radius: 10px;
+    
+}
+
+.lanches:hover{ 
+    transition: 1s;
+    width: 350px;
+    height: 250px;
+    transform: scale(1.2);
+}
+

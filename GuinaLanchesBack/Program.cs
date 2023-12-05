@@ -6,13 +6,19 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using GuinaLanchesBack.Model;
 using GuinaLanchesBack.Services;
+using Trevisharp.Security.Jwt;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<GuinaLanchesContext>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddSingleton<ISecurityService, SecurityService>();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
+// Cors
 builder.Services.AddCors(options => 
 {
     options.AddPolicy("DefaultPolicy",
@@ -24,11 +30,11 @@ builder.Services.AddCors(options =>
         });
 });
 
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Crypto para jwt
+builder.Services.AddSingleton<CryptoService>(p => new(){
+    InternalKeySize = 24,
+    UpdatePeriod = TimeSpan.FromDays(1)
+});
 
 var app = builder.Build();
 

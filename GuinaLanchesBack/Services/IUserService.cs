@@ -9,5 +9,5 @@ using Model;
 public interface IUserService
 {
     Task Create(UserData data);
-    Task<Cliente> GetByLogin(string login);
+    Task<User> GetByLogin(string login);
 }

@@ -6,11 +6,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ClientServiceService } from '../services/client-service.service';
+import { Router } from '@angular/router';
+import { NavComponent } from '../nav/nav.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, MatInputModule, MatFormFieldModule, MatButtonModule, FormsModule, MatDialogModule],
+  imports: [CommonModule, MatInputModule, MatFormFieldModule, MatButtonModule, FormsModule, MatDialogModule, NavComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -18,7 +20,8 @@ import { ClientServiceService } from '../services/client-service.service';
 export class LoginComponent {
 
   constructor (public dialog: MatDialog,
-    private client: ClientServiceService) {}
+    private client: ClientServiceService,
+    private router: Router) {}
 
   username: string = ""
   password: string = ""
@@ -28,7 +31,10 @@ export class LoginComponent {
     this.client.login({
       login: this.username,
       password: this.password
+
     })
+    
+    this.router.navigate(['promocoes']);
   }
 
   registrar()
