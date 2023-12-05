@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
+using System.Collections.Generic;
 
 
 namespace GuinaLanchesBack.Controllers;
@@ -14,29 +15,46 @@ using Services;
 [Route("user")]
 public class UserController : ControllerBase
 {
-    [HttpGet]
+    [HttpPost("login")]
     [EnableCors("DefaultPolicy")]
 
     public async Task<IActionResult> Login(
         [FromBody] UserData user,
-        [FromServices] IUserService service)
+        [FromServices] IUserService service,
+        [FromServices] ISecurityService security)
     {
-        var logged = await service
+        var loginUser = await service
             .GetByLogin(user.Login);
 
-        if(logged.Senha != user.Password)
-            return Ok("Deu ruim!!");
+        var password = await security.HashPassword(
+            user.Password, loginUser.Salt
+        );
+
+        var realPassword = loginUser.Senha;
+
+        if(password != realPassword)
+            return Unauthorized("Senha incorreta!");
 
         return Ok();
-        
     }
 
-    [HttpPost]
+    [HttpPost("register")]
     [EnableCors("DefaultPolicy")]
     public async Task<IActionResult> Create(
         [FromBody] UserData user,
         [FromServices] IUserService service)
     {
+        var errors = new List<string>();
+
+        if(user is null || user.Login is null)
+            errors.Add("É necessario informar o login!");
+
+        if(user.Login.Length < 5)
+            errors.Add("O Login deve conter ao menos 5 caracteres!");
+
+        if(errors.Count > 0)
+            return BadRequest(errors);
+
         await service.Create(user);
         return Ok();
     }

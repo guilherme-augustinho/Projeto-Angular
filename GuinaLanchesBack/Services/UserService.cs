@@ -10,14 +10,22 @@ using Model;
 public class UserService : IUserService
 {
     GuinaLanchesContext ctx;
-    public UserService(GuinaLanchesContext ctx)
-        => this.ctx = ctx;
+    ISecurityService security;
+    public UserService(GuinaLanchesContext ctx, ISecurityService security)
+    {
+        this.ctx = ctx;
+        this.security = security;
+    }
     public async Task Create(UserData data)
     {
-        Cliente cliente =  new Cliente();
+        Cliente cliente = new Cliente();
+        var salt = await security.GenerateSalt();
+
         cliente.Nome = data.Login;
-        cliente.Senha = data.Password;
-        cliente.Salt = "??????";
+        cliente.Senha = await security.HashPassword(
+            data.Password, salt
+        );
+        cliente.Salt = salt;
 
         this.ctx.Add(cliente);
         await this.ctx.SaveChangesAsync();

@@ -11,7 +11,13 @@ export class ClientServiceService {
 
   register(data: ClientData)
   {
-    this.http.post("user", data)
+    this.http.post("user/register", data)
+      .subscribe(r => console.log(r))
+  }
+
+  login(data: ClientData)
+  {
+    this.http.post('user/login', data)
       .subscribe(r => console.log(r))
   }
 }
